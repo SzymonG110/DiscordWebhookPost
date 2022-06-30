@@ -1,0 +1,15 @@
+{
+  "name": "xibbly",
+  "version": "0.0.1",
+  "description": "Xibbly webhook sender.",
+  "main": "build/index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start': "node build/index.js"
+  },
+  "author": "SzymonG110#8841",
+  "license": "ISC",
+  "dependencies": {
+    "typescript": "^4.7.3"
+  }
+}
