@@ -1,11 +1,1 @@
-{
-  "name": "xibbly",
-  "main": "build/index.js",
-  "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
-    "start': "node build/index.js"
-  },
-  "dependencies": {
-    "typescript": "^4.7.3"
-  }
-}
+{}
