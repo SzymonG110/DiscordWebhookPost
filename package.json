@@ -1,7 +1,9 @@
 {
-"name": "discord-webhook-post",
-"main": "build/index.js",
-"scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
-},
+    "name": "discord-webhook-post",
+    "version": "0.0.1",
+    "main": "build/index.js",
+    "author": "SzymonG110#8841",
+    "scripts": {
+        "test": "echo \"Error: no test specified\" && exit 1"
+    },
 }
