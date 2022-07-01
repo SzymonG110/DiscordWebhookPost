@@ -18,20 +18,31 @@ class IndexWeb {
     }
     postEndpoint() {
         this.app.post('/', async (req, res) => {
-            if (!req.body.token || req.body.token !== process.env.ACCESS_TOKEN)
-                return res.status(401).send('Unauthorized');
-            const postData = await new sendWebhook_util_1.default().post("https://discord.com/api/webhooks/992423581436874792/mUUzP8YJYSxaP8zXWJXSZZp3z2gR02FdWIxk3HY7_MsU_iX40NIp32cBCRCb0eMhpD_p", req.body.webhookData);
-            if (`${postData.status}`.startsWith('2')) {
-                res.send({
-                    status: '200',
-                    message: 'Webhook sent successfully'
-                });
+            try {
+                if (!req.body.token || req.body.token !== process.env.ACCESS_TOKEN)
+                    return res.status(401).send('Unauthorized');
+                if (!req.body.webhookUrl)
+                    return res.status(400).send('Missing webhookUrl');
+                const postData = await new sendWebhook_util_1.default().post(req.body.webhookUrl, req.body.webhookData);
+                if (`${postData.status}`.startsWith('2')) {
+                    res.send({
+                        status: '200',
+                        message: 'Webhook sent successfully'
+                    });
+                }
+                else {
+                    res.send({
+                        status: '500',
+                        message: 'Webhook failed to send',
+                        error: postData.response.data.message
+                    });
+                }
             }
-            else {
+            catch (e) {
                 res.send({
                     status: '500',
                     message: 'Webhook failed to send',
-                    error: postData.response.data.message
+                    error: e
                 });
             }
         });
