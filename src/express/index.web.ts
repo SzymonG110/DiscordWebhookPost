@@ -33,7 +33,8 @@ export default class IndexWeb {
                 if (`${postData.status}`.startsWith('2')) {
                     res.send({
                         status: '200',
-                        message: 'Webhook sent successfully'
+                        message: 'Webhook sent successfully',
+                        data: postData.data
                     })
                 } else {
                     res.send({
