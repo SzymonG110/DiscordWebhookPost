@@ -35,7 +35,8 @@ class IndexWeb {
                     res.send({
                         status: '500',
                         message: 'Webhook failed to send',
-                        error: postData.response.data.message
+                        error_code: postData.code,
+                        error: postData
                     });
                 }
             }

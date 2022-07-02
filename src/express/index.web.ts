@@ -1,6 +1,5 @@
 import ex, {Application, Request, Response} from 'express'
 import SendWebhookUtil from "../utils/sendWebhook.util";
-import {AxiosResponse} from "axios";
 
 export default class IndexWeb {
 
@@ -40,7 +39,8 @@ export default class IndexWeb {
                     res.send({
                         status: '500',
                         message: 'Webhook failed to send',
-                        error: postData.response.data.message
+                        error_code: postData.code,
+                        error: postData
                     })
                 }
             } catch (e) {
