@@ -34,7 +34,7 @@ export default class IndexWeb {
                     res.send({
                         status: '200',
                         message: 'Webhook sent successfully',
-                        data: postData.data
+                        data: JSON.parse(postData.config.data)
                     })
                 } else {
                     res.send({
