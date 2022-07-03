@@ -24,7 +24,7 @@ class IndexWeb {
                 if (!req.body.webhookUrl)
                     return res.status(400).send('Missing webhookUrl');
                 const postData = await new sendWebhook_util_1.default().post(req.body.webhookUrl, req.body.webhookData);
-                if (`${postData.status}`.startsWith('2')) {
+                if (postData) {
                     res.send({
                         status: '200',
                         message: 'Webhook sent successfully',
@@ -35,7 +35,6 @@ class IndexWeb {
                     res.send({
                         status: '500',
                         message: 'Webhook failed to send',
-                        error_code: postData.code,
                         error: postData
                     });
                 }
