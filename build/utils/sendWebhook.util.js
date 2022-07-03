@@ -17,16 +17,13 @@ class SendWebhookUtil {
                 }
             });
             return {
-                status: 'success',
-                message: 'Message sent',
+                success: true,
                 webhookId: x.id,
-                guildId: x.guild_id,
                 channelId: x.channel_id,
             };
         }
         catch (e) {
-            console.log(e);
-            return false;
+            return { success: false, error: [e.message, e.path] };
         }
     }
 }
