@@ -1,4 +1,4 @@
-import {WebhookClient, WebhookClientData} from 'discord.js'
+import {WebhookClient} from 'discord.js'
 
 export default class SendWebhookUtil {
 
@@ -9,15 +9,7 @@ export default class SendWebhookUtil {
         })
 
         try {
-            const x = await webhook.send({
-                username: body.username,
-                avatarURL: body.avatarUrl,
-                content: body.content,
-                files: body.filesUrl,
-                allowedMentions: {
-                    parse: []
-                }
-            })
+            const x = await webhook.send(body)
 
             return {
                 success: true,
