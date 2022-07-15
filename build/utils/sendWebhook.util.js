@@ -7,15 +7,7 @@ class SendWebhookUtil {
             url
         });
         try {
-            const x = await webhook.send({
-                username: body.username,
-                avatarURL: body.avatarUrl,
-                content: body.content,
-                files: body.filesUrl,
-                allowedMentions: {
-                    parse: []
-                }
-            });
+            const x = await webhook.send(body);
             return {
                 success: true,
                 webhookId: x.id,
