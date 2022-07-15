@@ -9,8 +9,8 @@ export default class SendWebhookUtil {
         })
 
         try {
-            if (body.avatar_url)
-                body.avatarUrl = body.avatar_url
+            body.avatarURL = body.avatar_url
+
             const x = await webhook.send(body)
 
             return {
