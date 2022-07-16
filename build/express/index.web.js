@@ -5,6 +5,7 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 Object.defineProperty(exports, "__esModule", { value: true });
 const express_1 = __importDefault(require("express"));
 const sendWebhook_util_1 = __importDefault(require("../utils/sendWebhook.util"));
+const axios_1 = __importDefault(require("axios"));
 class IndexWeb {
     constructor() {
         this.app = (0, express_1.default)();
@@ -17,6 +18,32 @@ class IndexWeb {
         this.app.use(express_1.default.urlencoded({ extended: false }));
     }
     postEndpoint() {
+        this.app.post('/check', async (req, res) => {
+            try {
+                if (!req.body.token || req.body.token !== process.env.ACCESS_TOKEN)
+                    return res.status(401).send('Unauthorized');
+                if (!req.body.webhookUrl)
+                    return res.status(400).send('Missing webhookUrl');
+                const postData = await axios_1.default.get(req.body.webhookUrl);
+                if (postData.data && postData.data.id && !isNaN(Number(postData.data.id))) {
+                    res.send(postData.data);
+                }
+                else {
+                    res.send({
+                        status: '500',
+                        message: 'Failed!',
+                        error: postData
+                    });
+                }
+            }
+            catch (e) {
+                res.send({
+                    status: '500',
+                    message: 'Webhook failed to send',
+                    error: `${e}`
+                });
+            }
+        });
         this.app.post('/', async (req, res) => {
             try {
                 if (!req.body.token || req.body.token !== process.env.ACCESS_TOKEN)
