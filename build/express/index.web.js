@@ -48,8 +48,8 @@ class IndexWeb {
             try {
                 if (!req.body.token || req.body.token !== process.env.ACCESS_TOKEN)
                     return res.status(401).send('Unauthorized');
-                if (!req.body.webhookUrl)
-                    return res.status(400).send('Missing webhookUrl');
+                if (!req.body.webhookUrl || !req.body.webhookData)
+                    return res.status(400).send('Missing data');
                 const postData = await new sendWebhook_util_1.default().post(req.body.webhookUrl, req.body.webhookData);
                 if (postData.success) {
                     res.send({
@@ -72,6 +72,7 @@ class IndexWeb {
                     message: 'Webhook failed to send',
                     error: `${e}`
                 });
+                console.log(e);
             }
         });
     }
