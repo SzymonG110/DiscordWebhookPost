@@ -1,4 +1,4 @@
-import ex, { Application, Request, Response } from 'express'
+import ex, {Application, Request, Response} from 'express'
 import SendWebhookUtil from '../utils/sendWebhook.util'
 import axios from "axios";
 
@@ -15,7 +15,7 @@ export default class IndexWeb {
 
     private configure(): void {
         this.app.use(ex.json())
-        this.app.use(ex.urlencoded({ extended: false }))
+        this.app.use(ex.urlencoded({extended: false}))
     }
 
     private postEndpoint(): void {
@@ -55,7 +55,7 @@ export default class IndexWeb {
 
                 if (!req.body.token || req.body.token !== process.env.ACCESS_TOKEN) return res.status(401).send('Unauthorized')
 
-                if (!req.body.webhookUrl || !req.body.webhookData) return res.status(400).send('Missing data') 
+                if (!req.body.webhookUrl || !req.body.webhookData) return res.status(400).send('Missing data')
 
                 const postData = await new SendWebhookUtil().post(req.body.webhookUrl, req.body.webhookData)
                 if (postData.success) {
